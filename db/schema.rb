@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 2022_01_16_015902) do
     t.string "summary"
     t.string "details"
     t.string "progress"
-    t.bigint "projects_id", null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["projects_id"], name: "index_tasks_on_projects_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -58,5 +58,5 @@ ActiveRecord::Schema.define(version: 2022_01_16_015902) do
   end
 
   add_foreign_key "projects", "users"
-  add_foreign_key "tasks", "projects", column: "projects_id"
+  add_foreign_key "tasks", "projects"
 end
