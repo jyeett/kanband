@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {Route, Switch} from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./Login";
 import Signup from "./Signup";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ProjectsHome from "./ProjectsHome";
+import Project from "./Project";
+import Task from "./Task"
 
 function App() {
   const [currentUser, setCurrentUser] = useState([])
@@ -27,6 +30,15 @@ function App() {
         </Route>
         <Route exact path="/signup">
           <Signup setCurrentUser={setCurrentUser}/>
+        </Route>
+        <Route exact path="/home">
+          <ProjectsHome />
+        </Route>
+        <Route exact path="/project">
+          <Project />
+        </Route>
+        <Route exact path="/task">
+          <Task />
         </Route>
       </Switch>
     </div>
