@@ -24,3 +24,10 @@ code {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.task-cont {
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  justify-content: space-between;
+}
