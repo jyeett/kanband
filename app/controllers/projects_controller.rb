@@ -5,8 +5,8 @@ class ProjectsController < ApplicationController
     end
 
     def show
-        this_project = @current_user.projects.find_by(id: params[:id])
-        render json: this_project.tasks, status: :ok
+        @this_project = @current_user.projects.find_by(id: params[:id])
+        render json: @this_project.tasks, status: :ok
     end
 
     def create

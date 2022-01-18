@@ -18,3 +18,9 @@ code {
   overflow: hidden;
   background-color: burlywood;
 }
+
+.card-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
