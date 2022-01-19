@@ -22,14 +22,6 @@ function App() {
         })
       }
     })
-
-    // fetch("/teams")
-    // .then(res => {
-    //     if (res.ok) {
-    //         res.json()
-    //         .then(data => console.log(data))
-    //     }
-    // })
   }, [])
 
   function addNewProject(projectObj) {

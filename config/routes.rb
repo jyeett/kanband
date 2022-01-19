@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # resources :users
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
-  get "/teams", to: "teams#index"
+  # get "/teams", to: "teams#index"
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"

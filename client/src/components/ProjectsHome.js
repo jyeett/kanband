@@ -12,7 +12,7 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
         user_id: currentUser.id
     })
     
-    const renderProjects = userProjects.map(project => <ProjectCard key={project.id} name={project.name} />)
+    const renderProjects = userProjects.map(project => <ProjectCard key={project.id} name={project.name} description={project.description} />)
 
     function handleShow() {
         setShow(true)
@@ -80,7 +80,7 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
                     <Form onSubmit={submitHandler}>
                         <Form.Control type="text" name="name" placeholder="Project Name" onChange={changeHandler} value={formData.name}/>
                         {hasName ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a name.</Form.Text>}
-                        <Form.Control type="text" name="description" placeholder="Description" onChange={changeHandler} value={formData.description}/>
+                        <Form.Control type="text" name="description" placeholder="Add a Short Description" onChange={changeHandler} value={formData.description}/>
                         {hasDescription ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a description.</Form.Text>}
                     </Form>                        
                 </Modal.Body>
