@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row, Modal, Form } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
 
-function ProjectsHome({currentUser, addNewProject, userProjects}) {
+function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects}) {
     const [show, setShow] = useState(false)
+    const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [hasName, setHasName] = useState(true)
     const [hasDescription, setHasDescription] = useState(true)
     const [formData, setFormData] = useState({
@@ -11,8 +12,20 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
         description: '',
         user_id: ''
     })
+
+    const [updateForm, setUpdateForm] = useState({
+        name: '',
+        description: '',
+        user_id: ''
+    })
     
-    const renderProjects = userProjects.map(project => <ProjectCard key={project.id} name={project.name} description={project.description} />)
+    const renderProjects = userProjects.map(project => <ProjectCard
+            key={project.id}
+            name={project.name}
+            description={project.description}
+            id={project.id}
+            handleShowUpdate={handleShowUpdate}
+            deleteHandler={deleteHandler} />)
 
     function handleShow() {
         setShow(true)
@@ -23,8 +36,33 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
         setShow(false)
     }
 
+    function handleShowUpdate(name, description, id) {
+        setUpdateForm({
+            name: name,
+            description: description,
+            id: id,
+            user_id: currentUser.id
+        })
+        setShowUpdateForm(true)
+    }
+
+    function handleCloseUpdate() {
+        setShowUpdateForm(false)
+    }
+
     function changeHandler(e) {
         setFormData({...formData, [e.target.name] : e.target.value})
+    }
+
+    function changeUpdateHandler(e) {
+        setUpdateForm({...updateForm, [e.target.name]: e.target.value})
+    }
+
+    function deleteHandler(id) {
+        const filteredProjects = userProjects.filter(project => project.id !== id)
+        console.log(filteredProjects)
+        setUserProjects([...filteredProjects])
+        fetch(`/projects/${id}`, {method: "DELETE"})
     }
 
     function submitHandler(e) {
@@ -57,6 +95,41 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
             });
             handleClose(); 
         }               
+    }
+
+    function editHandler() {
+        if (updateForm.name !== '' && updateForm.description !== '') {
+            const newProjects = userProjects.map(project => {
+                if (project.id === updateForm.id) {
+                    console.log('here')
+                    return {
+                        name: updateForm.name,
+                        description: updateForm.description,
+                        id: updateForm.id,
+                        user_id: currentUser.id
+                    }
+                } else {
+                    console.log(project)
+                    return project
+                }
+            })
+            console.log(newProjects)
+            setUserProjects([...newProjects])
+            fetch(`/projects/${updateForm.id}`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(updateForm)
+            })
+            .then(r => r.json())
+            .then(data => {
+                console.log(data)
+                handleCloseUpdate()
+            })
+        } else {
+            console.log("cannot apply changes")
+        }
     }
 
     return (
@@ -93,6 +166,30 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
                     </Button>
                     <Button type="submit" variant="primary" onClick={submitHandler}>
                         Create Project
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showUpdateForm} onHide={handleCloseUpdate}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Your Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={editHandler}>
+                        <Form.Text className='invalid-input' >Album Name</Form.Text>
+                        <Form.Control type="text" name="name" placeholder="album name" onChange={changeUpdateHandler} value={updateForm.name}/>
+                        {updateForm.name !== '' ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a name.</Form.Text>}
+                        <Form.Text className='invalid-input' >Description</Form.Text>
+                        <Form.Control type="text" name="description" placeholder="description" onChange={changeUpdateHandler} value={updateForm.description}/>
+                        {updateForm.description !== '' ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a description.</Form.Text>}
+                    </Form>                        
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseUpdate}>
+                        Close
+                    </Button>
+                    <Button type="submit" variant="primary" onClick={editHandler}>
+                        Apply Changes
                     </Button>
                 </Modal.Footer>
             </Modal>

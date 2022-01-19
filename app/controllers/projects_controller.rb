@@ -17,13 +17,13 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
-        del_project = @current_user.projects.find_by(id: params[:id])
+        del_project = Team.find_by(user_id: @current_user.id, project_id: params[:id])
         del_project.destroy
         head :no_content
     end
 
-    def updated
-        updated_project = @current_user.project.find_by(id: params[:id])
+    def update
+        updated_project = Project.find_by(id: params[:id])
         if updated_project
             updated_project.update(project_params)
             render json: updated_project

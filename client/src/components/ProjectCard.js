@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 
-function ProjectCard({name, description}) {
+function ProjectCard({name, description, id, handleShowUpdate, deleteHandler}) {
     return (
         <Card className="my-5 mx-3" style={{width: '18rem', height: '13rem'}}>
             <Card.Body className="card-style">
@@ -11,10 +11,10 @@ function ProjectCard({name, description}) {
                 </Row>
                 <Row>
                     <Col className="d-flex justify-content-center">
-                        <Button variant="primary">Edit</Button>
+                        <Button variant="primary" onClick={() => handleShowUpdate(name, description, id)}>Edit</Button>
                     </Col>
                     <Col className="d-flex justify-content-center">
-                        <Button variant="danger">Delete</Button>
+                        <Button variant="danger" onClick={() => deleteHandler(id)}>Delete</Button>
                     </Col>
                 </Row>
             </Card.Body>

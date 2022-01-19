@@ -43,7 +43,8 @@ function App() {
           <ProjectsHome 
             currentUser={currentUser}
             addNewProject={addNewProject}
-            userProjects={userProjects} />
+            userProjects={userProjects}
+            setUserProjects={setUserProjects} />
         </Route>
         <Route exact path="/project">
           <Project />

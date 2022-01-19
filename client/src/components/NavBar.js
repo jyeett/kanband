@@ -19,7 +19,7 @@ function NavBar({user, setCurrentUser}) {
         <>
             <Navbar bg="primary" expand={false}>
                 <Container fluid>
-                    {user ? <Navbar.Brand as={NavLink} to="/albumlist">Pictostash</Navbar.Brand> : <Navbar.Brand as={NavLink} to="/">Pictostash</Navbar.Brand>}
+                    {user ? <Navbar.Brand as={NavLink} to="/home">KanbanD</Navbar.Brand> : <Navbar.Brand as={NavLink} to="/">Pictostash</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="offcanvasNavbar" />
                     <Navbar.Offcanvas
                     id="offcanvasNavbar"
@@ -27,7 +27,7 @@ function NavBar({user, setCurrentUser}) {
                     placement="end"
                     >
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title id="offcanvasNavbarLabel">Pictostash</Offcanvas.Title>
+                        <Offcanvas.Title id="offcanvasNavbarLabel">KanbanD</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
