@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Row, Modal, Form } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
 
@@ -9,13 +9,14 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        user_id: currentUser.id
+        user_id: ''
     })
     
     const renderProjects = userProjects.map(project => <ProjectCard key={project.id} name={project.name} description={project.description} />)
 
     function handleShow() {
         setShow(true)
+        setFormData({...formData, ["user_id"]: currentUser.id})
     }
 
     function handleClose() {
@@ -28,12 +29,14 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
 
     function submitHandler(e) {
         e.preventDefault();
+        
         if (formData.name.length === 0 || formData.description.length === 0) {
             formData.name === '' ? setHasName(false) : setHasName(true)
             formData.description === '' ? setHasDescription(false) : setHasDescription(true)
             console.log("trying to submit baaaad data ='(");
         } else {            
             console.log('trying to create a new project.');
+            console.log(formData)
             const postURL = '/projects';
             const postConfig = {
                 method: 'POST',
@@ -47,7 +50,7 @@ function ProjectsHome({currentUser, addNewProject, userProjects}) {
                 setFormData({
                     name: '',
                     description: '',
-                    user_id: currentUser.id
+                    user_id: ''
                 })
                 setHasName(true)
                 setHasDescription(true)

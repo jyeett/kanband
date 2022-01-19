@@ -6,6 +6,7 @@ import Signup from "./Signup";
 import ProjectsHome from "./ProjectsHome";
 import Project from "./Project";
 import Task from "./Task"
+import NavBar from "./NavBar";
 
 function App() {
   const [currentUser, setCurrentUser] = useState([])
@@ -30,6 +31,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar user={currentUser} setCurrentUser={setCurrentUser}/>
       <Switch>
         <Route exact path="/">
           <Login setCurrentUser={setCurrentUser} setUserProjects={setUserProjects} />
