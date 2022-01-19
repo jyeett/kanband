@@ -9,6 +9,7 @@ import Task from "./Task"
 
 function App() {
   const [currentUser, setCurrentUser] = useState([])
+  const [userProjects, setUserProjects] = useState([])
 
   useEffect(() => {
     fetch("/me")
@@ -16,23 +17,39 @@ function App() {
       if (res.ok) {
         res.json()
         .then(user => {
+          setCurrentUser(user)
           console.log(user)
         })
       }
     })
+
+    // fetch("/teams")
+    // .then(res => {
+    //     if (res.ok) {
+    //         res.json()
+    //         .then(data => console.log(data))
+    //     }
+    // })
   }, [])
+
+  function addNewProject(projectObj) {
+    setUserProjects([...userProjects, projectObj])
+  }
 
   return (
     <div className="App">
       <Switch>
         <Route exact path="/">
-          <Login />
+          <Login setCurrentUser={setCurrentUser} setUserProjects={setUserProjects} />
         </Route>
         <Route exact path="/signup">
           <Signup setCurrentUser={setCurrentUser}/>
         </Route>
         <Route exact path="/home">
-          <ProjectsHome />
+          <ProjectsHome 
+            currentUser={currentUser}
+            addNewProject={addNewProject}
+            userProjects={userProjects} />
         </Route>
         <Route exact path="/project">
           <Project />

@@ -10,7 +10,9 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        new_project = @current_user.projects.create!(project_params)
+        new_project = Project.create!(project_params)
+        # proj_id = @current_user.projects.last.id
+        Team.create({user_id: @current_user.id, project_id: new_project.id})
         render json: new_project, status: :created
     end
 
@@ -32,6 +34,6 @@ class ProjectsController < ApplicationController
 
     private
     def project_params
-        params.permit(:name, :description)
+        params.permit(:name, :description, :user_id)
     end
 end

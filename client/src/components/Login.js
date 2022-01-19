@@ -2,8 +2,8 @@ import { Link, useHistory } from "react-router-dom"
 import {Form, Button, Col} from 'react-bootstrap'
 import { useState } from 'react'
 
-function Login() {
-    const history = useHistory();
+function Login({setCurrentUser, setUserProjects}) {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -28,10 +28,17 @@ function Login() {
     .then((resp) => {
       if (resp.ok) {
         resp.json().then((user) => {
-        //   setCurrentUser(user);
+          setCurrentUser(user)
+          console.log(user.projects)
+          setUserProjects(user?.projects)
         //   setIsAuthenticated(true);
-        //   setUserAlbums(user?.albums);
-        console.log(user)
+          // fetch("/teams")
+          // .then(res => {
+          //     if (res.ok) {
+          //         res.json()
+          //         .then(data => console.log(data))
+          //     }
+          // })
         })
         history.push("/home"); 
       } else {

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
   before_action :authorize
 
-  rescue_from ActiveRecord::RecordINvalid, with: :render_unprocessable_entity_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
   private
   def authorize
