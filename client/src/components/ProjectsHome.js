@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, Row, Modal, Form } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
 
-function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects}) {
+function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects, setActiveProject}) {
     const [show, setShow] = useState(false)
     const [showUpdateForm, setShowUpdateForm] = useState(false)
     const [hasName, setHasName] = useState(true)
@@ -21,11 +21,10 @@ function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects
     
     const renderProjects = userProjects.map(project => <ProjectCard
             key={project.id}
-            name={project.name}
-            description={project.description}
-            id={project.id}
+            project={project}
             handleShowUpdate={handleShowUpdate}
-            deleteHandler={deleteHandler} />)
+            deleteHandler={deleteHandler}
+            setActiveProject={setActiveProject} />)
 
     function handleShow() {
         setShow(true)

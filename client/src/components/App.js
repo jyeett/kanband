@@ -11,6 +11,7 @@ import NavBar from "./NavBar";
 function App() {
   const [currentUser, setCurrentUser] = useState([])
   const [userProjects, setUserProjects] = useState([])
+  const [activeProject, setActiveProject] = useState([])
 
   useEffect(() => {
     fetch("/me")
@@ -19,6 +20,7 @@ function App() {
         res.json()
         .then(user => {
           setCurrentUser(user)
+          setUserProjects(user?.projects)
           console.log(user)
         })
       }
@@ -44,10 +46,11 @@ function App() {
             currentUser={currentUser}
             addNewProject={addNewProject}
             userProjects={userProjects}
-            setUserProjects={setUserProjects} />
+            setUserProjects={setUserProjects}
+            setActiveProject={setActiveProject} />
         </Route>
         <Route exact path="/project">
-          <Project />
+          <Project activeProject={activeProject} />
         </Route>
         <Route exact path="/task">
           <Task />

@@ -19,7 +19,7 @@ function NavBar({user, setCurrentUser}) {
         <>
             <Navbar bg="primary" expand={false}>
                 <Container fluid>
-                    {user ? <Navbar.Brand as={NavLink} to="/home">KanbanD</Navbar.Brand> : <Navbar.Brand as={NavLink} to="/">Pictostash</Navbar.Brand>}
+                    {user ? <Navbar.Brand as={NavLink} to="/home">KanbanD</Navbar.Brand> : <Navbar.Brand as={NavLink} to="/">KanbanD</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="offcanvasNavbar" />
                     <Navbar.Offcanvas
                     id="offcanvasNavbar"
