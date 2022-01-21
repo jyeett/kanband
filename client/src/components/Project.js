@@ -131,7 +131,7 @@ function Project({activeProject}) {
             </Row>
             <Row>
                 <Col className="d-flex justify-content-end">
-                    <Button className="my-5" onClick={handleShowTaskForm}>Add Task</Button>
+                    <Button className="my-4" onClick={handleShowTaskForm}>Add Task</Button>
                 </Col>
             </Row>
 

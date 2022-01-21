@@ -1,10 +1,11 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Draggable } from "react-beautiful-dnd";
+import { Button, Card } from "react-bootstrap";
 
 const categoryStyle = {
     "backgroundColor": "lightblue",
-    "height": "1.5rem",
-    "max-width": "4rem",
+    "minHeight": "1.5rem",
+    "maxWidth": "4rem",
     "borderRadius": "15px",
     "fontSize": "12px",
     "display": "flex",
@@ -12,20 +13,36 @@ const categoryStyle = {
     "alignItems": "center",
 }
 
-function TaskCard({task}) {
+function TaskCard({task, index}) {
 
     return (
-        <Card className="my-1" style={{width: '12rem', height: '7rem'}}>
-            <Card.Body>
-                <Card.Title style={{"fontSize": "15px"}}>
-                    {task.summary}
-                </Card.Title>
-                <div style={categoryStyle}>
-                    {task.category_name}
-                </div>
-                {/* <p>category</p> */}
-            </Card.Body>
-        </Card>
+        <Draggable key={String(task.id)} draggableId={String(task.id)} index={index}>
+            {(provided, snapshot) => {
+                return  (
+                    <Card
+                        className="my-1"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{
+                            minWidth: '12rem',
+                            minHeight: '7rem',
+                            ...provided.draggableProps.style,
+                            opacity: snapshot.isDragging ? "70%": "100%"
+                        }}
+                    >
+                        <Card.Body>
+                            <Card.Title style={{"fontSize": "15px"}}>
+                                {task.summary}
+                            </Card.Title>
+                            <div style={categoryStyle}>
+                                {task.category_name}
+                            </div>
+                        </Card.Body>
+                    </Card>
+                )
+            }}
+        </Draggable>
     )
 }
 

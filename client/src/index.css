@@ -31,3 +31,7 @@ code {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.board-col::-webkit-scrollbar {
+  display: none;
+}
