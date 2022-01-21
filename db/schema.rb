@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_01_16_015902) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string "type"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -34,9 +34,12 @@ ActiveRecord::Schema.define(version: 2022_01_16_015902) do
     t.string "summary"
     t.string "details"
     t.string "progress"
+    t.string "category_name"
     t.bigint "project_id", null: false
+    t.bigint "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 

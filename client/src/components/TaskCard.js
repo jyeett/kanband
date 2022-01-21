@@ -1,16 +1,28 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
-function TaskCard() {
+const categoryStyle = {
+    "backgroundColor": "lightblue",
+    "height": "1.5rem",
+    "max-width": "4rem",
+    "borderRadius": "15px",
+    "fontSize": "12px",
+    "display": "flex",
+    "justifyContent": "center",
+    "alignItems": "center",
+}
+
+function TaskCard({task}) {
+
     return (
-        <Card style={{width: '9rem', height: '7rem'}}>
+        <Card className="my-1" style={{width: '12rem', height: '7rem'}}>
             <Card.Body>
-                <Card.Title>
-                    Description
+                <Card.Title style={{"fontSize": "15px"}}>
+                    {task.summary}
                 </Card.Title>
-                <Card.Footer style={{"background-color": "lightblue", "height": "2rem", "width": "6rem", "border-radius": "15px"}}>
-                    Category
-                </Card.Footer>
+                <div style={categoryStyle}>
+                    {task.category_name}
+                </div>
                 {/* <p>category</p> */}
             </Card.Body>
         </Card>

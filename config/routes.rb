@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   resources :teams
-  resources :categories
+  # resources :categories
   resources :tasks
   resources :projects
   # resources :users
@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   get "/users", to: "users#index"
   # get "/teams", to: "teams#index"
+  get "/categories", to: "categories#show"
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
