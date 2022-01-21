@@ -12,6 +12,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState([])
   const [userProjects, setUserProjects] = useState([])
   const [activeProject, setActiveProject] = useState([])
+  const [categories, setCategories] = useState([])
+  const [activeTask, setActiveTask] = useState([])
 
   useEffect(() => {
     fetch("/me")
@@ -25,7 +27,12 @@ function App() {
         })
       }
     })
+    fetch('/categories')
+    .then(res => res.json())
+    .then(data => setCategories(data))
   }, [])
+
+  const optionList = categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)
 
   function addNewProject(projectObj) {
     setUserProjects([...userProjects, projectObj])
@@ -50,10 +57,10 @@ function App() {
             setActiveProject={setActiveProject} />
         </Route>
         <Route exact path="/project">
-          <Project activeProject={activeProject} />
+          <Project activeProject={activeProject} setActiveTask={setActiveTask} />
         </Route>
         <Route exact path="/task">
-          <Task />
+          <Task activeTask={activeTask} setActiveTask={setActiveTask} optionList={optionList} />
         </Route>
       </Switch>
     </div>

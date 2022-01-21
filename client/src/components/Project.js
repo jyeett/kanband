@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Board from "./Board";
 
-function Project({activeProject}) {
+function Project({activeProject, setActiveTask}) {
     const [newCollaborator, setNewCollaborator] = useState('')
     const [categories, setCategories] = useState([])
     const [showCollabForm, setShowCollabForm] = useState(false)
@@ -127,7 +127,7 @@ function Project({activeProject}) {
                 </Col>
             </Row>
             <Row>
-                <Board taskList={taskList} />
+                <Board taskList={taskList} setActiveTask={setActiveTask} optionList={optionList}/>
             </Row>
             <Row>
                 <Col className="d-flex justify-content-end">

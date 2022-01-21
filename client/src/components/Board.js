@@ -34,7 +34,7 @@ const taskContainer = {
     "borderRadius": "10px"
 }
 
-function Board({taskList}) {
+function Board({taskList, setActiveTask}) {
     const taskCards = taskList.length > 0 ? taskList.map(task => {
         return <TaskCard key={task.id} task={task}/>
         // return taskList
@@ -148,40 +148,7 @@ function Board({taskList}) {
                                                 >
                                                     {column.items.map((item, index) => {
                                                         return (
-                                                            <TaskCard task={item} index={index} />
-                                                            // <Draggable key={String(item.id)} draggableId={String(item.id)} index={index}>
-                                                            //     {(provided, snapshot) => {
-                                                            //         return (
-                                                            //             // <TaskCard
-                                                            //             //     task={item}
-                                                            //             //     ref={provided.innerRef}
-                                                            //             //     {...provided.draggableProps}
-                                                            //             //     {...provided.dragHandleProps}
-                                                            //             //     style={{
-                                                            //             //                 "backgroundColor": snapshot.isDragging ? "#263B4A" : "#456C86",
-                                                            //             //                 "color": "white",
-                                                            //             //                 ...provided.draggableProps.style
-                                                            //             //     }}
-                                                            //             // />
-                                                            //             <div
-                                                            //                 ref={provided.innerRef}
-                                                            //                 {...provided.draggableProps}
-                                                            //                 {...provided.dragHandleProps}
-                                                            //                 style={{"userSelect": "none",
-                                                            //                     "padding": "16px",
-                                                            //                     "margin": "0 0 8px 0",
-                                                            //                     "minHeight": "100px",
-                                                            //                     "backgroundColor": snapshot.isDragging ? "#263B4A" : "#456C86",
-                                                            //                     "color": "white",
-                                                            //                     ...provided.draggableProps.style
-                                                            //                 }}
-                                                            //             >
-                                                            //                 {item.summary}
-                                                            //                 {item.category_name}
-                                                            //             </div>
-                                                            //         )
-                                                            //     }}
-                                                            // </Draggable>
+                                                            <TaskCard task={item} index={index} setActiveTask={setActiveTask} />
                                                         )
                                                     })}
                                                     {provided.placeholder}
