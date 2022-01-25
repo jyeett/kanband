@@ -5,7 +5,7 @@ import { DragDropContext, Droppable} from "react-beautiful-dnd";
 import { v4 as uuidv4 } from "uuid";
 
 const boardStyle = {
-    "backgroundColor": "lightgrey",
+    "backgroundColor": "#354a38",
     "width": "100%",
     "height": "65vh",
     "border": "1px solid black",
@@ -23,7 +23,8 @@ const colStyle = {
 const taskContainer = {
     "padding": "4px",
     "width": "210px",
-    "margin-right": "20px",
+    "marginRight": "10px",
+    "marginLeft": "10px",
     "height": "500px",
     "overflowY": "scroll",
     "overflowX": "hidden",
@@ -102,6 +103,11 @@ function Board({taskList, setActiveTask}) {
         }
     }
 
+    function handleTaskDelete(id) {
+        console.log(id)
+        fetch(`/tasks/${id}`, {method: 'DELETE'})
+    }
+
     return (
         <Container style={boardStyle}>
             {/* <Row>
@@ -129,7 +135,7 @@ function Board({taskList, setActiveTask}) {
                 <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
                     {Object.entries(columns).map(([columnId, column], index) => {
                         return (
-                            <div key={columnId} style={{"display": "flex", "flexDirection": "column", "alignItems": "center", "justifyContent": "center"}}>
+                            <div key={columnId} style={{"display": "flex", "flexDirection": "column", "alignItems": "center", "justifyContent": "center", "textAlign": "center"}}>
                                 <h2>
                                     {column.name}
                                 </h2>
@@ -142,13 +148,13 @@ function Board({taskList, setActiveTask}) {
                                                     {...provided.droppableProps}
                                                     ref={provided.innerRef}
                                                     style={{
-                                                        "background": snapshot.isDraggingOver ? "lightblue" : "lightgreen",
+                                                        "background": snapshot.isDraggingOver ? "lightblue" : "#567a5b",
                                                         ...taskContainer
                                                     }}
                                                 >
                                                     {column.items.map((item, index) => {
                                                         return (
-                                                            <TaskCard task={item} index={index} setActiveTask={setActiveTask} />
+                                                            <TaskCard task={item} index={index} setActiveTask={setActiveTask} handleTaskDelete={handleTaskDelete} />
                                                         )
                                                     })}
                                                     {provided.placeholder}

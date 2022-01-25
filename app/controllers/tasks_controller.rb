@@ -19,6 +19,12 @@ class TasksController < ApplicationController
         end
     end
 
+    def destroy
+        del_task = Task.find_by(id: params[:id])
+        del_task.destroy
+        head :no_content
+    end
+
     private
     def task_params
         params.permit(:summary, :details, :progress, :category_name, :category_id, :project_id)

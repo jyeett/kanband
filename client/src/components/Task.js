@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Button, Container, Row, Modal, Form } from "react-bootstrap"
 
 const detailStyle = {
-    "background-color": "lightgrey",
+    "backgroundColor": "lightgrey",
     "width": "80vw",
     "height": "40vh",
     "border": "1px solid black",
-    "border-radius": "15px",
+    "borderRadius": "15px",
     "overflow": "hidden"
 }
 

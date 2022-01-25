@@ -16,13 +16,16 @@ code {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: burlywood;
+  background: linear-gradient(170deg, rgba(41,28,49,1) 0%, rgba(113,67,142,1) 100%);
+  color: white;
+  font-family: 'Play', sans-serif;
 }
 
 .card-style {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  color: black;
 }
 
 .task-cont {

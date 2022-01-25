@@ -17,7 +17,7 @@ function NavBar({user, setCurrentUser}) {
 
     return(
         <>
-            <Navbar bg="primary" expand={false}>
+            <Navbar style={{"backgroundColor": "#59386e"}} variant="dark" expand={false}>
                 <Container fluid>
                     {user ? <Navbar.Brand as={NavLink} to="/home">KanbanD</Navbar.Brand> : <Navbar.Brand as={NavLink} to="/">KanbanD</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="offcanvasNavbar" />
@@ -25,6 +25,7 @@ function NavBar({user, setCurrentUser}) {
                     id="offcanvasNavbar"
                     aria-labelledby="offcanvasNavbarLabel"
                     placement="end"
+                    style={{"backgroundColor": "#59386e", "color": "white"}}
                     >
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title id="offcanvasNavbarLabel">KanbanD</Offcanvas.Title>

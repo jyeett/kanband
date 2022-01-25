@@ -23,13 +23,31 @@ const viewStyle = {
     "fontSize": "12px"
 }
 
-function TaskCard({task, index, setActiveTask}) {
+const deleteStyle = {
+    "height": "18px",
+    "maxWidth": "5px",
+    "position": "absolute",
+    "top": "-5px",
+    "left": "-5px",
+    "display": "flex",
+    "justifyContent": "center",
+    "alignItems": "center",
+    "borderRadius": "100%",
+    "fontSize": "11px"
+}
+
+function TaskCard({task, index, setActiveTask, handleTaskDelete}) {
     const history = useHistory()
 
     function handleClick() {
-        history.push("/task")
+        history.push('/task')
         setActiveTask(task)
     }
+
+    // function handleTaskDelete(id) {
+    //     console.log(id)
+    //     fetch(`/task/${id}`, {headers: "DELETE"})
+    // }
 
     return (
         <Draggable key={String(task.id)} draggableId={String(task.id)} index={index}>
@@ -46,9 +64,12 @@ function TaskCard({task, index, setActiveTask}) {
                             minWidth: '12rem',
                             minHeight: '7rem',
                             ...provided.draggableProps.style,
-                            opacity: snapshot.isDragging ? "70%": "100%"
+                            opacity: snapshot.isDragging ? "70%": "100%",
+                            boxShadow: snapshot.isDragging ? '' : '3px 3px #434743',
+                            color: "black"
                         }}
                     >
+                        <Button variant="danger" onClick={() => handleTaskDelete(task.id)} style={deleteStyle}>X</Button>
                         <Card.Body className="d-flex flex-column justify-content-between">
                             <Row>
                                 <Col sm={10}>
