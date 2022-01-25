@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Button, Container, Row, Modal, Form } from "react-bootstrap"
 
 const detailStyle = {
-    "backgroundColor": "lightgrey",
+    "backgroundColor": "#354a38",
     "width": "80vw",
     "height": "40vh",
     "border": "1px solid black",
     "borderRadius": "15px",
-    "overflow": "hidden"
+    "overflow": "hidden",
+    "padding": "15px"
 }
 
 function Task({activeTask, setActiveTask, optionList}) {

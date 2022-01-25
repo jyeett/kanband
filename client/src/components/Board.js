@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import TaskCard from "./TaskCard";
 import { DragDropContext, Droppable} from "react-beautiful-dnd";
@@ -35,36 +35,35 @@ const taskContainer = {
     "borderRadius": "10px"
 }
 
-function Board({taskList, setActiveTask}) {
-    const taskCards = taskList.length > 0 ? taskList.map(task => {
-        return <TaskCard key={task.id} task={task}/>
-        // return taskList
-    }) : null
-
-    // sort tasklist and assign coresponding progress category to items
+function Board({setActiveTask, taskCategories, setTaskList, taskList}) {
+    console.log(taskCategories.backlog)
     const boardColumns = {
         [uuidv4()]: {
             name: "BACKLOG",
-            items: taskList
+            items: taskCategories.backlog
         },
         [uuidv4()]: {
             name: "TO DO",
-            items: []
+            items: taskCategories.todo
         },
         [uuidv4()]: {
             name: "IN PROGRESS",
-            items: []
+            items: taskCategories.progress
         },
         [uuidv4()]: {
             name: "IN REVIEW",
-            items: []
+            items: taskCategories.review
         },
         [uuidv4()]: {
             name: "DONE",
-            items: []
+            items: taskCategories.todo
         }
     }
     const [columns, setColumns] = useState(boardColumns)
+    
+    useEffect(() => {
+        setColumns(boardColumns)
+    }, [taskCategories])
 
     const onDragEnd = (result, columns, setColumns) => {
         if (!result.destination) return;
@@ -105,32 +104,13 @@ function Board({taskList, setActiveTask}) {
 
     function handleTaskDelete(id) {
         console.log(id)
+        const updatedList = taskList.filter(task => task.id !== id)
+        setTaskList(updatedList)
         fetch(`/tasks/${id}`, {method: 'DELETE'})
     }
 
     return (
         <Container style={boardStyle}>
-            {/* <Row>
-                <Col className="d-flex align-items-center" style={{"flexDirection": "column", "borderRight": "1px solid black"}}>
-                    <h5 className="my-2">BACKLOG</h5>
-                    <div style={{"overflow": "auto", "height": "100%"}}>
-                        {taskCards}
-                    </div>
-                </Col>
-                <Col className="d-flex align-items-center" style={colStyle}>
-                    <h5 className="my-2">TO DO</h5>
-                </Col>
-                <Col className="d-flex align-items-center" style={colStyle}>
-                    <h5 className="my-2">IN PROGRESS</h5>
-                </Col>
-                <Col className="d-flex align-items-center" style={colStyle}>
-                    <h5 className="my-2">IN REVIEW</h5>
-                </Col>
-                <Col className="d-flex align-items-center" style={{"flexDirection": "column", "height": "column", "borderLeft": "1px solid black"}}>
-                    <h5 className="my-2">DONE</h5>
-                </Col>
-            </Row> */}
-
             <div style={{"display": "flex", "justifyContent": "center", "height": "100%"}}>
                 <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
                     {Object.entries(columns).map(([columnId, column], index) => {

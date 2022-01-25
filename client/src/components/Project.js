@@ -19,6 +19,13 @@ function Project({activeProject, setActiveTask}) {
     })
     // console.log(activeProject.tasks)
     const [hasUser, setHasUser] = useState(true)
+    const taskCategories = {
+        backlog: taskList.filter(task => task.progress === 'backlog'),
+        todo: taskList.filter(task => task.progress === 'to do'),
+        progress: taskList.filter(task => task.progress === 'in progress'),
+        review: taskList.filter(task => task.progress === 'in review'),
+        done: taskList.filter(task => task.progress === 'done')
+    }
 
     useEffect(() => {
         fetch('/categories')
@@ -78,6 +85,7 @@ function Project({activeProject, setActiveTask}) {
 
     function submitTask() {
         console.log(taskForm)
+        // setTaskList([...taskList], taskForm)
         fetch("/tasks", {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -127,7 +135,7 @@ function Project({activeProject, setActiveTask}) {
                 </Col>
             </Row>
             <Row>
-                <Board taskList={taskList} setActiveTask={setActiveTask} optionList={optionList}/>
+                <Board setActiveTask={setActiveTask} optionList={optionList} taskCategories={taskCategories} setTaskList={setTaskList} taskList={taskList} />
             </Row>
             <Row>
                 <Col className="d-flex justify-content-end">
