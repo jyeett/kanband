@@ -63,7 +63,7 @@ function App() {
             setTaskList={setTaskList} />
         </Route>
         <Route exact path="/project">
-          <Project activeProject={activeProject} setActiveTask={setActiveTask} />
+          <Project activeProject={activeProject} setActiveTask={setActiveTask} taskList={taskList} setTaskList={setTaskList} />
         </Route>
         <Route exact path="/task">
           <Task activeTask={activeTask} setActiveTask={setActiveTask} optionList={optionList} />

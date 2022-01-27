@@ -7,6 +7,7 @@ function ProjectCard({project, handleShowUpdate, deleteHandler, setActiveProject
     const history = useHistory()
     function viewProject() {
         setActiveProject(project)
+        console.log(project)
         setTaskList(project.tasks)
         history.push('/project')
     }

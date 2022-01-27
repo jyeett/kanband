@@ -101,7 +101,6 @@ function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects
         if (updateForm.name !== '' && updateForm.description !== '') {
             const newProjects = userProjects.map(project => {
                 if (project.id === updateForm.id) {
-                    console.log('here')
                     return {
                         name: updateForm.name,
                         description: updateForm.description,
@@ -114,7 +113,7 @@ function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects
                 }
             })
             console.log(newProjects)
-            setUserProjects([...newProjects])
+            setUserProjects([...userProjects], newProjects)
             fetch(`/projects/${updateForm.id}`, {
                 method: 'PATCH',
                 headers: {
@@ -125,6 +124,7 @@ function ProjectsHome({currentUser, addNewProject, userProjects, setUserProjects
             .then(r => r.json())
             .then(data => {
                 console.log(data)
+                setTaskList(data.tasks)
                 handleCloseUpdate()
             })
         } else {

@@ -3,11 +3,11 @@ import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Board from "./Board";
 import useLocalStorage from "./useLocalStorage";
 
-function Project({activeProject, setActiveTask}) {
+function Project({activeProject, setActiveTask, taskList, setTaskList}) {
     const [newCollaborator, setNewCollaborator] = useState('')
     const [categories, setCategories] = useState([])
     const [showCollabForm, setShowCollabForm] = useState(false)
-    const [taskList, setTaskList] = useLocalStorage('taskList', activeProject.tasks)
+    // const [taskList, setTaskList] = useLocalStorage('taskList', activeProject.tasks)
     const [showTaskForm, setShowTaskForm] = useState(false)
     const [taskForm, setTaskForm] = useState({
         summary: '',
@@ -18,6 +18,7 @@ function Project({activeProject, setActiveTask}) {
         project_id: ''
     })
     const [hasUser, setHasUser] = useState(true)
+    console.log(taskList)
     const taskCategories = {
         backlog: taskList.filter(task => task.progress === 'backlog'),
         todo: taskList.filter(task => task.progress === 'todo'),
@@ -74,7 +75,10 @@ function Project({activeProject, setActiveTask}) {
                                 body: JSON.stringify(teamData)
                             })
                             .then(res => res.json())
-                            .then(data => console.log(data))
+                            .then(() => {
+                                setNewCollaborator('')
+                                handleCloseCollabForm()
+                            })
                         }
                     })
                 }
