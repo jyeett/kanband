@@ -43,7 +43,7 @@ function Signup({setCurrentUser}) {
   return (
     <div className="text-center d-flex flex-column align-items-center">
 
-      <h2>Create your account</h2>
+      <h2 className="my-5">Create your account</h2>
       <br/>
       <Col sm={8} md={6} lg={4}>
         <Form onSubmit={handleSubmit}>

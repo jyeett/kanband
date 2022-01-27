@@ -15,6 +15,7 @@ function App() {
   const [activeProject, setActiveProject] = useLocalStorage('activeProject', [])
   const [categories, setCategories] = useState([])
   const [activeTask, setActiveTask] = useLocalStorage('activeTask', [])
+  const [taskList, setTaskList] = useLocalStorage('taskList', [])
 
   useEffect(() => {
     fetch("/me")
@@ -30,7 +31,10 @@ function App() {
     })
     fetch('/categories')
     .then(res => res.json())
-    .then(data => setCategories(data))
+    .then(data => {
+      console.log(data)
+      setCategories(data)
+    })
   }, [])
 
   const optionList = categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)
@@ -55,7 +59,8 @@ function App() {
             addNewProject={addNewProject}
             userProjects={userProjects}
             setUserProjects={setUserProjects}
-            setActiveProject={setActiveProject} />
+            setActiveProject={setActiveProject}
+            setTaskList={setTaskList} />
         </Route>
         <Route exact path="/project">
           <Project activeProject={activeProject} setActiveTask={setActiveTask} />

@@ -31,14 +31,6 @@ function Login({setCurrentUser, setUserProjects}) {
           setCurrentUser(user)
           console.log(user.projects)
           setUserProjects(user?.projects)
-        //   setIsAuthenticated(true);
-          // fetch("/teams")
-          // .then(res => {
-          //     if (res.ok) {
-          //         res.json()
-          //         .then(data => console.log(data))
-          //     }
-          // })
         })
         history.push("/home"); 
       } else {
@@ -53,7 +45,7 @@ function Login({setCurrentUser, setUserProjects}) {
     return (
       <div className="text-center d-flex flex-column align-items-center">
 
-        <h2>Welcome to KanbanD!</h2>
+        <h1 className="title my-5">Welcome to KanbanD!</h1>
         <br/>
 
         <Col sm={8}>

@@ -3,10 +3,11 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import useLocalStorage from "./useLocalStorage";
 
-function ProjectCard({project, handleShowUpdate, deleteHandler, setActiveProject}) {
+function ProjectCard({project, handleShowUpdate, deleteHandler, setActiveProject, setTaskList}) {
     const history = useHistory()
     function viewProject() {
         setActiveProject(project)
+        setTaskList(project.tasks)
         history.push('/project')
     }
 

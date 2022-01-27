@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+    skip_before_action :authorize
+    
     def show
         all_categories = Category.all
         render json: all_categories, status: :ok

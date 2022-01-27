@@ -15,11 +15,16 @@ function NavBar({user, setCurrentUser}) {
             })
     }
 
+    function homeButton() {
+       user ? history.push("/home") : history.push('/')
+       history.go(0)
+    }
+
     return(
         <>
             <Navbar style={{"backgroundColor": "#59386e"}} variant="dark" expand={false}>
                 <Container fluid>
-                    {user ? <Navbar.Brand as={NavLink} to="/home">KanbanD</Navbar.Brand> : <Navbar.Brand as={NavLink} to="/">KanbanD</Navbar.Brand>}
+                    {<Navbar.Brand onClick={homeButton}>KanbanD</Navbar.Brand>}
                     <Navbar.Toggle aria-controls="offcanvasNavbar" />
                     <Navbar.Offcanvas
                     id="offcanvasNavbar"
