@@ -1,9 +1,9 @@
-# Project Template: React/Rails API
+# KanbanD
 
 ## Description
 
-This project is scaffolded so that you can build a React frontend and Rails
-backend together, and easily deploy them to Heroku.
+This React/Rails project allows users to organize and manage their projects on
+a kanban board
 
 ## Requirements
 
