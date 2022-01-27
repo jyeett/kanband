@@ -23,7 +23,7 @@ function Login({setCurrentUser, setUserProjects}) {
       body: JSON.stringify(formData),
     };
 
-    //need to add in sessions route for this fetch
+  
     fetch("/login", configObj)
     .then((resp) => {
       if (resp.ok) {

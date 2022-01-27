@@ -100,13 +100,11 @@ function Task({activeTask, setActiveTask, optionList}) {
                         {hasSummary ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a summary.</Form.Text>}
                         <Form.Text className='invalid-input' >Task Details</Form.Text>
                         <Form.Control as="textarea" name="details" placeholder="Task Details" onChange={changeTaskHandler} value={taskUpdateForm.details}/>
-                        {/* {hasUser ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a summary.</Form.Text>} */}
                         <Form.Text className='invalid-input' >Task Category</Form.Text>
                         <Form.Select name="category_id" onChange={changeTaskHandler}>
                             <option>Choose a Category</option>
                             {optionList}
                         </Form.Select>
-                        {/* {hasUser ? null : <Form.Text className='invalid-input' style={{color: 'red'}} >You must enter a summary.</Form.Text>} */}
                     </Form>                        
                 </Modal.Body>
                 <Modal.Footer>

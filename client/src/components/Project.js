@@ -7,7 +7,6 @@ function Project({activeProject, setActiveTask, taskList, setTaskList}) {
     const [newCollaborator, setNewCollaborator] = useState('')
     const [categories, setCategories] = useState([])
     const [showCollabForm, setShowCollabForm] = useState(false)
-    // const [taskList, setTaskList] = useLocalStorage('taskList', activeProject.tasks)
     const [showTaskForm, setShowTaskForm] = useState(false)
     const [taskForm, setTaskForm] = useState({
         summary: '',

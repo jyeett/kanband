@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -38,16 +38,12 @@ const deleteStyle = {
 
 function TaskCard({task, index, setActiveTask, handleTaskDelete}) {
     const history = useHistory()
+    const [showDelete, setShowDelete] = useState(false)
 
     function handleClick() {
         history.push('/task')
         setActiveTask(task)
     }
-
-    // function handleTaskDelete(id) {
-    //     console.log(id)
-    //     fetch(`/task/${id}`, {headers: "DELETE"})
-    // }
 
     return (
         <Draggable key={String(task.id)} draggableId={String(task.id)} index={index}>
@@ -68,8 +64,10 @@ function TaskCard({task, index, setActiveTask, handleTaskDelete}) {
                             boxShadow: snapshot.isDragging ? '' : '3px 3px #434743',
                             color: "black"
                         }}
+                        onMouseEnter={() => setShowDelete(true)}
+                        onMouseLeave={() => setShowDelete(false)}
                     >
-                        <Button variant="danger" onClick={() => handleTaskDelete(task.id)} style={deleteStyle}>X</Button>
+                        {showDelete ? <Button variant="danger" onClick={() => handleTaskDelete(task.id)} style={deleteStyle}>X</Button> : null}
                         <Card.Body className="d-flex flex-column justify-content-between">
                             <Row>
                                 <Col sm={10}>

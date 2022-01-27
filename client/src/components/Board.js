@@ -9,8 +9,7 @@ const boardStyle = {
     "width": "100%",
     "height": "65vh",
     "border": "1px solid black",
-    "borderRadius": "15px",
-    // "overflow": "hidden"
+    "borderRadius": "15px"
 }
 
 const colStyle = {

@@ -11,7 +11,6 @@ class ProjectsController < ApplicationController
 
     def create
         new_project = Project.create!(project_params)
-        # proj_id = @current_user.projects.last.id
         Team.create({user_id: @current_user.id, project_id: new_project.id})
         render json: new_project, status: :created
     end
