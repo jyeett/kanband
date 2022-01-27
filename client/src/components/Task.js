@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Container, Row, Modal, Form } from "react-bootstrap"
+import { Button, Container, Row, Modal, Form, Col } from "react-bootstrap"
 
 const detailStyle = {
     "backgroundColor": "#354a38",
@@ -82,9 +82,11 @@ function Task({activeTask, setActiveTask, optionList}) {
                 </Container>
             </Row>
             <Row>
-                <Button onClick={handleShowTaskForm}>
-                    Edit Task
-                </Button>
+                <Col className="my-4 d-flex justify-content-end">
+                    <Button onClick={handleShowTaskForm} >
+                        Edit Task
+                    </Button>
+                </Col>
             </Row>
 
             <Modal show={showTaskform} onHide={handleCloseTaskForm}>

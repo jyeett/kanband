@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import Board from "./Board";
+import useLocalStorage from "./useLocalStorage";
 
 function Project({activeProject, setActiveTask}) {
     const [newCollaborator, setNewCollaborator] = useState('')
     const [categories, setCategories] = useState([])
     const [showCollabForm, setShowCollabForm] = useState(false)
-    const [taskCategory, setTaskCategory] = useState('')
-    const [taskList, setTaskList] = useState(activeProject.tasks)
+    const [taskList, setTaskList] = useLocalStorage('taskList', activeProject.tasks)
     const [showTaskForm, setShowTaskForm] = useState(false)
     const [taskForm, setTaskForm] = useState({
         summary: '',
@@ -17,13 +17,12 @@ function Project({activeProject, setActiveTask}) {
         category_id: '',
         project_id: ''
     })
-    // console.log(activeProject.tasks)
     const [hasUser, setHasUser] = useState(true)
     const taskCategories = {
         backlog: taskList.filter(task => task.progress === 'backlog'),
-        todo: taskList.filter(task => task.progress === 'to do'),
-        progress: taskList.filter(task => task.progress === 'in progress'),
-        review: taskList.filter(task => task.progress === 'in review'),
+        todo: taskList.filter(task => task.progress === 'todo'),
+        progress: taskList.filter(task => task.progress === 'progress'),
+        review: taskList.filter(task => task.progress === 'review'),
         done: taskList.filter(task => task.progress === 'done')
     }
 
@@ -84,8 +83,6 @@ function Project({activeProject, setActiveTask}) {
     }
 
     function submitTask() {
-        console.log(taskForm)
-        // setTaskList([...taskList], taskForm)
         fetch("/tasks", {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -93,7 +90,6 @@ function Project({activeProject, setActiveTask}) {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
             setTaskList([...taskList, data])
             setTaskForm({
                 summary: '',

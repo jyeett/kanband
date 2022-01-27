@@ -7,13 +7,14 @@ import ProjectsHome from "./ProjectsHome";
 import Project from "./Project";
 import Task from "./Task"
 import NavBar from "./NavBar";
+import useLocalStorage from "./useLocalStorage";
 
 function App() {
   const [currentUser, setCurrentUser] = useState([])
   const [userProjects, setUserProjects] = useState([])
-  const [activeProject, setActiveProject] = useState([])
+  const [activeProject, setActiveProject] = useLocalStorage('activeProject', [])
   const [categories, setCategories] = useState([])
-  const [activeTask, setActiveTask] = useState([])
+  const [activeTask, setActiveTask] = useLocalStorage('activeTask', [])
 
   useEffect(() => {
     fetch("/me")

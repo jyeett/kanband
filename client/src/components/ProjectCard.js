@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+import useLocalStorage from "./useLocalStorage";
 
 function ProjectCard({project, handleShowUpdate, deleteHandler, setActiveProject}) {
     const history = useHistory()

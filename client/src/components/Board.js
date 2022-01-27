@@ -36,27 +36,31 @@ const taskContainer = {
 }
 
 function Board({setActiveTask, taskCategories, setTaskList, taskList}) {
-    console.log(taskCategories.backlog)
     const boardColumns = {
         [uuidv4()]: {
             name: "BACKLOG",
+            label: "backlog",
             items: taskCategories.backlog
         },
         [uuidv4()]: {
             name: "TO DO",
+            label: "todo",
             items: taskCategories.todo
         },
         [uuidv4()]: {
             name: "IN PROGRESS",
+            label: "progress",
             items: taskCategories.progress
         },
         [uuidv4()]: {
             name: "IN REVIEW",
+            label: "review",
             items: taskCategories.review
         },
         [uuidv4()]: {
             name: "DONE",
-            items: taskCategories.todo
+            label: "done",
+            items: taskCategories.done
         }
     }
     const [columns, setColumns] = useState(boardColumns)
@@ -87,6 +91,7 @@ function Board({setActiveTask, taskCategories, setTaskList, taskList}) {
                     items: destItems
                 }
             })
+            assignProgress(removed, destColumn.label)
         } else {
             const column = columns[source.droppableId]
             const copiedItems = [...column.items]
@@ -102,8 +107,21 @@ function Board({setActiveTask, taskCategories, setTaskList, taskList}) {
         }
     }
 
+    function assignProgress(task, label) {
+        fetch(`/tasks/${task.id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({['progress']: label})
+        })
+        .then(res => res.json())
+        .then(data => {
+            const newList = taskList
+            newList.splice(newList.findIndex(task => task.id === data.id), 1, data)
+            setTaskList([...newList])
+        })
+    }
+
     function handleTaskDelete(id) {
-        console.log(id)
         const updatedList = taskList.filter(task => task.id !== id)
         setTaskList(updatedList)
         fetch(`/tasks/${id}`, {method: 'DELETE'})
